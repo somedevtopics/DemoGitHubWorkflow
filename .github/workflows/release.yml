@@ -1,0 +1,38 @@
+name: PackageAndDeploy
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  
+  Package:
+    runs-on: ubuntu-latest
+    steps:
+    - id: step1
+      run: echo "::set-output name=test::hello"
+    - id: step2
+      run: echo "::set-output name=test::world"
+
+  DeploymentDev:
+    runs-on: ubuntu-latest
+    environment: Dev    
+    needs: [Package]
+    steps:
+    - id: step1
+      run: echo "Deploiement en dev"
+  DeploymentQualif:
+    runs-on: ubuntu-latest
+    environment: Qualif
+    needs: [DeploymentDev]
+    steps:
+    - id: step1
+      run: echo "Deploiement en qualification"    
+  DeploymentPreprod:
+    runs-on: ubuntu-latest
+    needs: [DeploymentQualif]
+    environment: Preprod
+    steps:
+    - id: step1
+      run: echo "Deploiement en preprod"
+
