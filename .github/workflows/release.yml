@@ -19,13 +19,5 @@ jobs:
     needs: [DeploymentDev]
     steps:
     - id: step1
-      run: echo "Deploiement en qualification"    
-  DeploymentPreprod:
-    runs-on: ubuntu-latest
-    needs: [DeploymentQualif]
-    environment: Preprod
-    if: github.event.label.name == 'deploy'
-    steps:
-    - id: step1
-      run: echo "Deploiement en preprod"
+      run: echo "Deploiement en qualification"
 
